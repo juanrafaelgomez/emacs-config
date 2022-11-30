@@ -17,7 +17,8 @@
       desktop-auto-save-timeout 5
 )
 
-(setq-default tab-width 4)
+;; For global tab width
+(setq-default tab-width 4) 
 
 ;; Experimental (do not add to main configuration until understood!) 
 ;; (setq fringe-mode '(50. 10))
@@ -35,8 +36,8 @@
 (repeat-mode 1)                                               ; Some commands can be repeated. Look at info command page for more info.
 (global-hl-line-mode 1)                                       ; Highlights the current line globally.
 (display-time-mode -1)                                         ; Show current time in the mode line.
-(electric-pair-mode 1)
-(electric-indent-mode -1)
+(electric-pair-mode 1)                                         ; Autocompletes parenthesis
+(electric-indent-mode 1)                                       ; Autocompletes tabs 
 
 
 ;; Load theme
@@ -52,7 +53,6 @@
 					:slant 'normal
 					:underline nil
 					)
-
 
 ;; Autosave always
 (auto-save-mode 1)
@@ -171,7 +171,9 @@
 
 ;; Setup for git
 (require 'git)
- 
+
+
+;; Using elpy instead of default python-mode for extended features:
 (use-package elpy
   :ensure t
   :init
@@ -184,5 +186,5 @@
 (load "elpy-refactor")
 (load "elpy-django")
 
-(setq python-shell-interpreter "python"
+(setq python-shell-interpreter "python"   ;; TODO replace with iPython
       python-shell-interpreter-args "-i")
