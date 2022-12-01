@@ -127,6 +127,7 @@
 (setq ivy-use-virtual-buffers t
 	  ivy-count-format "(%d/%d) ")
 
+;; Entry need for CL development
 (setq inferior-lisp-program "sbcl")
 
 
@@ -188,3 +189,4 @@
 
 (setq python-shell-interpreter "python"   ;; TODO replace with iPython
       python-shell-interpreter-args "-i")
+
