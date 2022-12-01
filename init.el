@@ -170,7 +170,7 @@
 
 
 ;; Setup for git
-(require 'git)
+;;(require 'git)
 
 
 ;; Using elpy instead of default python-mode for extended features:
