@@ -161,15 +161,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Setup needed for magit to work
-;; (require 'package)
-;; (add-to-list 'package-archives
-;;              '("melpa" . "http://melpa.org/packages/") t)
-;; (require 'magit)
-;; (setq magit-git-executable C:/Users/I506687/AppData/Local/Programs/Git/git-cmd.exe)
-;; (provide 'init-local)
-
-
 ;; Setup for git
 ;; (require 'git)
 
