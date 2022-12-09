@@ -15,6 +15,7 @@
       visible-bell nil
       confirm-kill-emacs 'yes-or-no-p                             ; Confirm exit
       desktop-auto-save-timeout 5
+	  python-indent-offset 4                                      ; Python default indent value
 )
 
 ;; For global tab width
@@ -36,7 +37,7 @@
 (repeat-mode 1)                                               ; Some commands can be repeated. Look at info command page for more info.
 (global-hl-line-mode 1)                                       ; Highlights the current line globally.
 (display-time-mode -1)                                         ; Show current time in the mode line.
-(electric-pair-mode 1)                                         ; Autocompletes parenthesis
+(electric-pair-mode -1)                                         ; Autocompletes parenthesis
 (electric-indent-mode 1)                                       ; Autocompletes tabs 
 
 
@@ -117,8 +118,8 @@
 
 ;; Evil mode
 (use-package evil)
-;; (evil-mode)
-;; (setq evil-undo-system 'undo-redo)
+(evil-mode)
+(setq evil-undo-system 'undo-redo)
 
 
 ;; Ivy-mode
@@ -153,7 +154,7 @@
  ;; If there is more than one, they won't work right.
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
