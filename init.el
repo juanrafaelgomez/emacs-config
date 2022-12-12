@@ -16,6 +16,7 @@
       confirm-kill-emacs 'yes-or-no-p                             ; Confirm exit
       desktop-auto-save-timeout 5
 	  python-indent-offset 4                                      ; Python default indent value
+	  hightlight-indentation-mode nil
 )
 
 ;; For global tab width
@@ -86,6 +87,7 @@
  'use-package
 )
 
+
 ;; Some performance improvements
 ;; Garbage collection frequency reduction from default
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -115,12 +117,10 @@
     ((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
     ((member "Symbola" (font-family-list)) "Symbola"))))
 
-
 ;; Evil mode
 (use-package evil)
 (evil-mode)
 (setq evil-undo-system 'undo-redo)
-
 
 ;; Ivy-mode
 (use-package ivy)
@@ -130,8 +130,6 @@
 
 ;; Entry need for CL development
 (setq inferior-lisp-program "sbcl")
-
-
 
 ;; Org-mode keybindings
 (global-set-key (kbd "C-c l") #'org-store-link)
@@ -154,17 +152,13 @@
  ;; If there is more than one, they won't work right.
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(powerline powerline-evil forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; Setup for git
-;; (require 'git)
-
 
 ;; Using elpy instead of default python-mode for extended features:
 (use-package elpy
@@ -181,4 +175,7 @@
 
 (setq python-shell-interpreter "python"   ;; TODO replace with iPython
       python-shell-interpreter-args "-i")
+
+(require 'powerline)
+(powerline-evil-vim-theme)
 
