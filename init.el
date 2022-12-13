@@ -1,6 +1,6 @@
 ;; init.el :: Custom Emacs configuration
 ;; Author: Juan Gomez <juanrafaelgomez@gmail.com>
-;; Last modification date: November 11, 2022.
+;; Last modification date: December 12, 2022.
 
 (setq inhibit-startup-message t
       init-file-debug t
@@ -85,6 +85,7 @@
  'cl-lib
  'ivy
  'use-package
+ 'powerline
 )
 
 
@@ -176,6 +177,5 @@
 (setq python-shell-interpreter "python"   ;; TODO replace with iPython
       python-shell-interpreter-args "-i")
 
-(require 'powerline)
+;; Powerline entries
 (powerline-evil-vim-theme)
-
