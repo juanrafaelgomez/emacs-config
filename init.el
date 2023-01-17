@@ -158,37 +158,38 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Using elpy instead of default python-mode for extended features:
-(use-package elpy
-  :ensure t
-  :init
-  (elpy-enable))
+	;; Using elpy instead of default python-mode for extended features:
+	(use-package elpy
+	:ensure t
+	:init
+	(elpy-enable))
 
-(load "elpy")
-(load "elpy-rpc")
-(load "elpy-shell")
-(load "elpy-profile")
-(load "elpy-refactor")
-(load "elpy-django")
+	(load "elpy")
+	(load "elpy-rpc")
+	(load "elpy-shell")
+	(load "elpy-profile")
+	(load "elpy-refactor")
+	(load "elpy-django")
 
-(setq python-shell-interpreter "python"   ;; TODO replace with iPython
-      python-shell-interpreter-args "-i")
+	(setq python-shell-interpreter "python"   ;; TODO replace with iPython
+		python-shell-interpreter-args "-i")
 
-;; Powerline entries (Powerline is not working correctly)
-;; (require 'powerline)
-;; (powerline-evil-vim-theme)
+	;; Powerline entries (Powerline is not working correctly)
+	;; (require 'powerline)
+	;; (powerline-evil-vim-theme)
 
-(use-package lsp-jedi
-  :ensure t
-  :config
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'pyls)
-    (add-to-list 'lsp-enabled-clients 'jedi)))
+	(use-package lsp-jedi
+	:ensure t
+	:config
+	(with-eval-after-load "lsp-mode"
+		(add-to-list 'lsp-disabled-clients 'pyls)
+		(add-to-list 'lsp-enabled-clients 'jedi)))
 
-;; (setq lsp-jedi-workspace-extra-paths
-;;   (vconcat lsp-jedi-workspace-extra-paths
-;;            ["/home/me/src/my-project/.venv/lib/python3.10/site-packages"]))
+	;; (setq lsp-jedi-workspace-extra-paths
+	;;   (vconcat lsp-jedi-workspace-extra-paths
+	;;            ["/home/me/src/my-project/.venv/lib/python3.10/site-packages"]))
 
 
-;; Disable cursor blinking when in doc-view mode
-(add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
+	;; Disable cursor blinking when in doc-view mode
+	(add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
+
