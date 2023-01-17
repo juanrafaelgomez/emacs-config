@@ -137,12 +137,12 @@
 
 
 	;; Perl setup
-	(fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
-	(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-	(setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
+	;; (fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
+	;; (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+	;; (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+	;; (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+	;; (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+	;; (setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
 
 	
 (custom-set-variables
@@ -182,18 +182,18 @@
 	;; (require 'powerline)
 	;; (powerline-evil-vim-theme)
 
-	(use-package lsp-jedi
-	:ensure t
-	:config
-	(with-eval-after-load "lsp-mode"
-		(add-to-list 'lsp-disabled-clients 'pyls)
-		(add-to-list 'lsp-enabled-clients 'jedi)))
+	;; (use-package lsp-jedi
+	;; :ensure t
+	;; :config
+	;; (with-eval-after-load "lsp-mode"
+	;; 	(add-to-list 'lsp-disabled-clients 'pyls)
+	;; 	(add-to-list 'lsp-enabled-clients 'jedi)))
 
-	;; (setq lsp-jedi-workspace-extra-paths
+;; (setq lsp-jedi-workspace-extra-paths
 	;;   (vconcat lsp-jedi-workspace-extra-paths
 	;;            ["/home/me/src/my-project/.venv/lib/python3.10/site-packages"]))
 
 
 	;; Disable cursor blinking when in doc-view mode
-	(add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
+	;; (add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
 
