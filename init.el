@@ -15,6 +15,7 @@
 		visible-bell nil
 		confirm-kill-emacs 'yes-or-no-p                             ; Confirm exit
 		desktop-auto-save-timeout 5
+		auto-save-timeout 30
 		python-indent-offset 4                                      ; Python default indent value
 		hightlight-indentation-mode nil
 	)
@@ -40,7 +41,7 @@
 	(display-time-mode -1)                                         ; Show current time in the mode line.
 	(electric-pair-mode -1)                                         ; Autocompletes parenthesis
 	(electric-indent-mode 1)                                       ; Autocompletes tabs 
-
+    (persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
 
 	;; Load theme
 	(load-theme 'spacemacs-dark)
@@ -55,6 +56,9 @@
 						:slant 'normal
 						:underline nil
 						)
+
+    ;; Change theme line highlight color
+    (set-face-background 'hl-line "#25446a")
 
 	;; Autosave always
 	(auto-save-mode 1)
@@ -137,12 +141,12 @@
 
 
 	;; Perl setup
-	;; (fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
-	;; (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-	;; (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-	;; (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-	;; (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-	;; (setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
+	(fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
+	(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+	(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+	(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+	(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+	(setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
 
 	
 (custom-set-variables
@@ -153,7 +157,7 @@
  '(elpy-formatter 'autopep8)
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot lsp-mode lsp-jedi powershell powerline powerline-evil forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -162,23 +166,13 @@
  ;; If there is more than one, they won't work right.
  )
 
-	;; Using elpy instead of default python-mode for extended features:
-	(use-package elpy
-	:ensure t
-	:init
-	(elpy-enable))
+;; Using elpy instead of default python-mode for extended features:
+;; Config taken from:
+;; https://medium.com/analytics-vidhya/managing-a-python-development-environment-in-emacs-43897fd48c6a
+;; Removed :straight t and extra parenthesis due evaluation issues
 
-	(load "elpy")
-	(load "elpy-rpc")
-	(load "elpy-shell")
-	(load "elpy-profile")
-	(load "elpy-refactor")
-	(load "elpy-django")
 
-	(setq python-shell-interpreter "python"   ;; TODO replace with iPython
-		python-shell-interpreter-args "-i")
-
-	;; Powerline entries (Powerline is not working correctly)
+		;; Powerline entries (Powerline is not working correctly)
 	;; (require 'powerline)
 	;; (powerline-evil-vim-theme)
 
@@ -196,4 +190,12 @@
 
 	;; Disable cursor blinking when in doc-view mode
 	;; (add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
+
+;; (require 'evil-extra-operator)
+;; (global-evil-extra-operator-mode 1)
+
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
 
