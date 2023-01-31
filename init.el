@@ -44,7 +44,7 @@
     (persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
 
 	;; Load theme
-	(load-theme 'spacemacs-dark)
+	(load-theme 'atom-dark)
 
 	;; Font family and size
 	(set-face-attribute 'default nil
@@ -58,7 +58,7 @@
 						)
 
     ;; Change theme line highlight color
-    (set-face-background 'hl-line "#25446a")
+    ;;(set-face-background 'hl-line "#25446a")
 
 	;; Autosave always
 	(auto-save-mode 1)
@@ -157,7 +157,7 @@
  '(elpy-formatter 'autopep8)
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -172,9 +172,14 @@
 ;; Removed :straight t and extra parenthesis due evaluation issues
 
 
-		;; Powerline entries (Powerline is not working correctly)
-	;; (require 'powerline)
-	;; (powerline-evil-vim-theme)
+;; Powerline entries (Powerline is not working correctly)
+(require 'powerline)
+;; (powerline-default-theme)
+;; (powerline-nano-theme)
+(powerline-center-evil-theme)
+
+;; Smart mode line 
+;; (sml/setup)
 
 	;; (use-package lsp-jedi
 	;; :ensure t
