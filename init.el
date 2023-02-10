@@ -20,15 +20,7 @@
 	  hightlight-indentation-mode nil
 	  )
 
-;; For global tab width
 (setq-default tab-width 4) 
-
-;; Experimental (do not add to main configuration until understood!) 
-;; (setq fringe-mode '(50. 10))
-;; (setq fringe-styles "minimal")
-;;(setq fringe-bitmaps "left-arrow")
-
-
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -43,12 +35,7 @@
 (electric-indent-mode 1)                                       ; Autocompletes tabs 
 (persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
 (with-current-buffer "*scratch*" (emacs-lock-mode 'kill))      ; Avoids *scratch* buffer to be killed.
-
-;; Load theme
-(load-theme 'spacemacs-dark)
-;;(load-theme 'monokai)
-;; (load-theme 'solarized-selenized-dark)
-;;(load-theme 'clues)
+(load-theme 'spacemacs-dark)                                   ; Loads theme
 
 ;; Font family and size
 (set-face-attribute 'default nil
@@ -168,47 +155,15 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Using elpy instead of default python-mode for extended features:
-;; Config taken from:
-;; https://medium.com/analytics-vidhya/managing-a-python-development-environment-in-emacs-43897fd48c6a
-;; Removed :straight t and extra parenthesis due evaluation issues
-
-
-;; Powerline entries (Powerline is not working correctly)
-;;(require 'powerline)
-;; (powerline-default-theme)
-;; (powerline-nano-theme)
-;;(powerline-center-evil-theme)
-
 ;; Smart mode line 
 (sml/setup)
 (setq sml/theme 'atom-one-dark)
 
-
-	;; (use-package lsp-jedi
-	;; :ensure t
-	;; :config
-	;; (with-eval-after-load "lsp-mode"
-	;; 	(add-to-list 'lsp-disabled-clients 'pyls)
-	;; 	(add-to-list 'lsp-enabled-clients 'jedi)))
-
-;; (setq lsp-jedi-workspace-extra-paths
-	;;   (vconcat lsp-jedi-workspace-extra-paths
-	;;            ["/home/me/src/my-project/.venv/lib/python3.10/site-packages"]))
-
-
-	;; Disable cursor blinking when in doc-view mode
-	;; (add-hook 'pdf-view-mode-hook (internal-show-cursor nil nil))
-
-;; (require 'evil-extra-operator)
-;; (global-evil-extra-operator-mode 1)
-
+; Elpy 
 (use-package elpy
   :ensure t
   :init
   (elpy-enable))
-
-
 
 ;; Org-mode settings and keybindings
 (add-to-list 'load-path "c:/Users/I506687/Documents/Org")
