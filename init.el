@@ -1,152 +1,154 @@
-	;; init.el :: Custom Emacs configuration
-	;; Author: Juan Gomez <juanrafaelgomez@gmail.com>
-	;; Last modification date: December 12, 2022.
+;; init.el :: Custom Emacs configuration
+;; Author: Juan Gomez <juanrafaelgomez@gmail.com>
+;; Last modification date: February 10, 2022.
 
-	(setq inhibit-startup-message t
-		init-file-debug t
-		cursor-type 'box
-		column-number-mode 1
-		default-directory "C:/Users/I506687/Documents"
-		org-directory "C:/Users/I506687/Documents/Org"
-		initial-buffer-choice nil                                     ; Always start with the *scratch* buffer
-		initial-scratch-message nil                                           ; No scratch message
-		custom-safe-themes t
-		backup-inhibited t
-		visible-bell nil
-		confirm-kill-emacs 'yes-or-no-p                             ; Confirm exit
-		desktop-auto-save-timeout 5
-		auto-save-timeout 30
-		python-indent-offset 4                                      ; Python default indent value
-		hightlight-indentation-mode nil
-	)
+(setq inhibit-startup-message t
+	  init-file-debug t
+	  default-cursor-type 'hollow
+	  column-number-mode 1
+	  default-directory "C:/Users/I506687/Documents"
+	  org-directory "C:/Users/I506687/Documents/Org"
+	  initial-buffer-choice nil                                     ; Always start with the *scratch* buffer
+	  initial-scratch-message "Scratchpad. Contents will be persistent during sessions." ; No scratch message
+	  custom-safe-themes t
+	  backup-inhibited t
+	  visible-bell nil
+	  confirm-kill-emacs 'yes-or-no-p                             ; Confirm exit
+	  desktop-auto-save-timeout 5
+	  auto-save-timeout 30
+	  python-indent-offset 4                                      ; Python default indent value
+	  hightlight-indentation-mode nil
+	  )
 
-	;; For global tab width
-	(setq-default tab-width 4) 
+;; For global tab width
+(setq-default tab-width 4) 
 
-	;; Experimental (do not add to main configuration until understood!) 
-	;; (setq fringe-mode '(50. 10))
-	;; (setq fringe-styles "minimal")
-	;;(setq fringe-bitmaps "left-arrow")
+;; Experimental (do not add to main configuration until understood!) 
+;; (setq fringe-mode '(50. 10))
+;; (setq fringe-styles "minimal")
+;;(setq fringe-bitmaps "left-arrow")
 
 
-	(tool-bar-mode -1)
-	(menu-bar-mode -1)
-	(scroll-bar-mode -1)
-	(tooltip-mode -1)
-	(desktop-save-mode 1)                                         ; Enable desktop save mode by default.
-	(auto-save-visited-mode 1)                                    ; Save the buffer every time it is visited.
-	(global-display-line-numbers-mode 1)                         ; display in al buffers the line numbers
-	(repeat-mode 1)                                               ; Some commands can be repeated. Look at info command page for more info.
-	(global-hl-line-mode 1)                                       ; Highlights the current line globally.
-	(display-time-mode -1)                                         ; Show current time in the mode line.
-	(electric-pair-mode -1)                                         ; Autocompletes parenthesis
-	(electric-indent-mode 1)                                       ; Autocompletes tabs 
-    (persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tooltip-mode -1)
+(desktop-save-mode 1)                                         ; Enable desktop save mode by default.
+(auto-save-visited-mode 1)                                    ; Save the buffer every time it is visited.
+(global-display-line-numbers-mode 1)                         ; display in al buffers the line numbers
+(repeat-mode 1)                                               ; Some commands can be repeated. Look at info command page for more info.
+(global-hl-line-mode 1)                                       ; Highlights the current line globally.
+(display-time-mode -1)                                         ; Show current time in the mode line.
+(electric-pair-mode -1)                                         ; Autocompletes parenthesis
+(electric-indent-mode 1)                                       ; Autocompletes tabs 
+(persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
+(with-current-buffer "*scratch*" (emacs-lock-mode 'kill))      ; Avoids *scratch* buffer to be killed.
 
-	;; Load theme
-	(load-theme 'atom-dark)
+;; Load theme
+(load-theme 'spacemacs-dark)
+;;(load-theme 'monokai)
+;; (load-theme 'solarized-selenized-dark)
+;;(load-theme 'clues)
 
-	;; Font family and size
-	(set-face-attribute 'default nil
-						:family "Monospace"
-						:font "Fira Code Retina"
-						:height 130
-						:width 'ultra-expanded
-						:weight 'normal
-						:slant 'normal
-						:underline nil
-						)
+;; Font family and size
+(set-face-attribute 'default nil
+					:family "Monospace"
+					:font "Fira Code Retina"
+					:height 130
+					:width 'ultra-expanded
+					:weight 'normal
+					:slant 'normal
+					:underline nil
+					)
 
-    ;; Change theme line highlight color
-    ;;(set-face-background 'hl-line "#25446a")
+;; Change theme line highlight color
+ (set-face-background 'hl-line "#10446a")
 
-	;; Autosave always
-	(auto-save-mode 1)
+;; Autosave always
+(auto-save-mode 1)
 
-	;; Remote repositories setup
-	(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-							("org" . "http://orgmode.org/elpa/")
-							("gnu" . "http://elpa.gnu.org/packages/")
-							))
+;; Remote repositories setup
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+						 ("org" . "http://orgmode.org/elpa/")
+						 ("gnu" . "http://elpa.gnu.org/packages/")
+						 ))
 
-	(package-initialize)
+(package-initialize)
 
-	(defun packages-require (&rest packs)
-	"Install and load a package. If the package is not available
+(defun packages-require (&rest packs)
+  "Install and load a package. If the package is not available
 	installs it automaticaly."
-	(mapc  (lambda (package)
-			(unless (package-installed-p package)
-					(package-install package)
-					;;#'package-require
-					))
-		packs))
+  (mapc  (lambda (package)
+		   (unless (package-installed-p package)
+			 (package-install package)
+			 ;;#'package-require
+			 ))
+		 packs))
 
-	(packages-require
-	'rainbow-delimiters
-	'company
-	'evil
-	'slime
-	'cl-lib
-	'ivy
-	'use-package
-	)
-
-
-	;; Some performance improvements
-	;; Garbage collection frequency reduction from default
-	(setq gc-cons-threshold (* 50 1000 1000))
-
-	;; A hook (automated process) that provide us with information about the garbage collector
-	(add-hook 'emacs-startup-hook
-			(lambda ()
-				(message "*** Emacs loaded in %s with %d garbage collections."
-						(format "%.2f seconds"
-								(float-time
-								(time-subtract after-init-time before-init-time)))
-						gcs-done)))
-
-	;; Emoji support added
-	(progn
-	;;set font for emoji (if before emacs 28, should come after setting symbols. emacs 28 now has 'emoji . before, emoji is part of 'symbol)
-	(set-fontset-font
-	t
-	(if (version< emacs-version "28.1")
-		'(#x1f300 . #x1fad0)
-		'emoji
-		)
-	(cond
-		((member "Apple Color Emoji" (font-family-list)) "Apple Color Emoji")
-		((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
-		((member "Noto Emoji" (font-family-list)) "Noto Emoji")
-		((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
-		((member "Symbola" (font-family-list)) "Symbola"))))
-
-	;; Evil mode
-	(use-package evil)
-	(require 'evil)
-	(evil-mode 1) 
-	(setq evil-undo-system 'undo-redo)
-
-	;; Ivy-mode
-	(use-package ivy)
-	(ivy-mode 1)
-	(setq ivy-use-virtual-buffers t
-		ivy-count-format "(%d/%d) ")
-
-	;; Entry need for CL development
-	(setq inferior-lisp-program "sbcl")
-
-	;; Org-mode keybindings
-	(global-set-key (kbd "C-c c") #'org-capture)
+(packages-require
+ 'rainbow-delimiters
+ 'company
+ 'evil
+ 'slime
+ 'cl-lib
+ 'ivy
+ 'use-package
+ )
 
 
-	;; Perl setup
-	(fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
-	(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-	(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-	(setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
+;; Some performance improvements
+;; Garbage collection frequency reduction from default
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; A hook (automated process) that provide us with information about the garbage collector
+(add-hook 'emacs-startup-hook
+		  (lambda ()
+			(message "*** Emacs loaded in %s with %d garbage collections."
+					 (format "%.2f seconds"
+							 (float-time
+							  (time-subtract after-init-time before-init-time)))
+					 gcs-done)))
+
+;; Emoji support added
+(progn
+  ;;set font for emoji (if before emacs 28, should come after setting symbols. emacs 28 now has 'emoji . before, emoji is part of 'symbol)
+  (set-fontset-font
+   t
+   (if (version< emacs-version "28.1")
+	   '(#x1f300 . #x1fad0)
+	 'emoji
+	 )
+   (cond
+	((member "Apple Color Emoji" (font-family-list)) "Apple Color Emoji")
+	((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
+	((member "Noto Emoji" (font-family-list)) "Noto Emoji")
+	((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
+	((member "Symbola" (font-family-list)) "Symbola"))))
+
+;; Evil mode
+(use-package evil)
+(require 'evil)
+(evil-mode 1) 
+(setq evil-undo-system 'undo-redo)
+
+;; Ivy-mode
+(use-package ivy)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t
+	  ivy-count-format "(%d/%d) ")
+
+;; Entry need for CL development
+(setq inferior-lisp-program "sbcl")
+
+
+
+;; Perl setup
+(fset 'perl-mode 'cperl-mode)  ; use cperl-mode instead of perl-mode for PERL.
+(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+(setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
 
 	
 (custom-set-variables
@@ -157,7 +159,7 @@
  '(elpy-formatter 'autopep8)
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(unkillable-scratch solarized-theme monokai-theme clues-theme smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -173,13 +175,15 @@
 
 
 ;; Powerline entries (Powerline is not working correctly)
-(require 'powerline)
+;;(require 'powerline)
 ;; (powerline-default-theme)
 ;; (powerline-nano-theme)
-(powerline-center-evil-theme)
+;;(powerline-center-evil-theme)
 
 ;; Smart mode line 
-;; (sml/setup)
+(sml/setup)
+(setq sml/theme 'atom-one-dark)
+
 
 	;; (use-package lsp-jedi
 	;; :ensure t
@@ -204,3 +208,10 @@
   :init
   (elpy-enable))
 
+
+
+;; Org-mode settings and keybindings
+(add-to-list 'load-path "c:/Users/I506687/Documents/Org")
+(global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
