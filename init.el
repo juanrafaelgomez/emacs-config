@@ -3,13 +3,13 @@
 ;; Last modification date: February 10, 2022.
 
 (setq inhibit-startup-message t
+	  initial-buffer-choice nil                                     ; Always start with the *scratch* buffer
+	  initial-scratch-message ";; Scratchpad persistent between sessions."
 	  init-file-debug t
-	  default-cursor-type 'hollow
+	  ; cursor-type 'hollow
 	  column-number-mode 1
 	  default-directory "C:/Users/I506687/Documents"
 	  org-directory "C:/Users/I506687/Documents/Org"
-	  initial-buffer-choice nil                                     ; Always start with the *scratch* buffer
-	  initial-scratch-message "Scratchpad. Contents will be persistent during sessions." ; No scratch message
 	  custom-safe-themes t
 	  backup-inhibited t
 	  visible-bell nil
@@ -20,7 +20,10 @@
 	  hightlight-indentation-mode nil
 	  )
 
+
+(setq-default cursor-type 'box)
 (setq-default tab-width 4) 
+(setq-default set-cursor-color 'red)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -37,6 +40,13 @@
 (with-current-buffer "*scratch*" (emacs-lock-mode 'kill))      ; Avoids *scratch* buffer to be killed.
 (load-theme 'spacemacs-dark)                                   ; Loads theme
 
+(add-hook 'doc-view-mode (lambda () (blink-cursor-mode 1)))    ; Disables blinking in PDF view
+
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
 ;; Font family and size
 (set-face-attribute 'default nil
 					:family "Monospace"
@@ -51,6 +61,7 @@
 ;; Change theme line highlight color
  (set-face-background 'hl-line "#10446a")
 
+	
 ;; Autosave always
 (auto-save-mode 1)
 
@@ -146,7 +157,7 @@
  '(elpy-formatter 'autopep8)
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(unkillable-scratch solarized-theme monokai-theme clues-theme smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(python-black all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy all-the-icons-ivy-rich all-the-icons-completion page-break-lines projectile-rails all-the-icons dashboard unkillable-scratch solarized-theme monokai-theme clues-theme smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -170,3 +181,33 @@
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+
+
+
+;; Dashboard setup
+;; (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+;; (use-package dashboard
+;;   :ensure t
+;;   :config
+;;   (dashboard-setup-startup-hook))
+;;   :init      ;; tweak dashboard config before loading it
+;;   (setq dashboard-set-heading-icons t)
+;;   (setq dashboard-set-file-icons t)
+;;   (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
+;;   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+;;   (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
+;;   (setq dashboard-center-content nil) ;; set to 't' for centered content
+;;   (setq dashboard-items '((recents . 7)
+;;                           ; (agenda . 5 )
+;;                           ; (bookmarks . 3)
+;;                           ; (projects . 3)
+;; 						  ;(registers . 3)
+;; 						  ))
+;;   :config
+;;   (dashboard-setup-startup-hook)
+;;   (dashboard-modify-heading-icons '((recents . "file-text")))
+
+
+
+
+
