@@ -4,9 +4,8 @@
 
 (setq inhibit-startup-message t
 	  initial-buffer-choice nil                                     ; Always start with the *scratch* buffer
-	  initial-scratch-message ";; Scratchpad persistent between sessions."
+	  initial-scratch-message ";; Scratchpad"
 	  init-file-debug t
-	  ; cursor-type 'hollow
 	  column-number-mode 1
 	  default-directory "C:/Users/I506687/Documents"
 	  org-directory "C:/Users/I506687/Documents/Org"
@@ -28,7 +27,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
-(desktop-save-mode 1)                                         ; Enable desktop save mode by default.
+;; (desktop-save-mode 1)                                         ; Enable desktop save mode by default.
 (auto-save-visited-mode 1)                                    ; Save the buffer every time it is visited.
 (global-display-line-numbers-mode 1)                         ; display in al buffers the line numbers
 (repeat-mode 1)                                               ; Some commands can be repeated. Look at info command page for more info.
@@ -36,9 +35,9 @@
 (display-time-mode -1)                                         ; Show current time in the mode line.
 (electric-pair-mode -1)                                         ; Autocompletes parenthesis
 (electric-indent-mode 1)                                       ; Autocompletes tabs 
-(persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
-(with-current-buffer "*scratch*" (emacs-lock-mode 'kill))      ; Avoids *scratch* buffer to be killed.
-(load-theme 'spacemacs-dark)                                   ; Loads theme
+;; (persistent-scratch-setup-default)                             ; Enable persistency in the *scratch* buffer.
+;; (with-current-buffer "*scratch*" (emacs-lock-mode 'kill))      ; Avoids *scratch* buffer to be killed.
+(load-theme 'base16-harmonic16-dark)                                   ; Loads theme
 
 (add-hook 'doc-view-mode (lambda () (blink-cursor-mode 1)))    ; Disables blinking in PDF view
 
@@ -64,6 +63,12 @@
 	
 ;; Autosave always
 (auto-save-mode 1)
+
+
+(setenv "PATH" (concat (getenv "PATH") "c:/Users/I506687/AppData/Local/Programs/Python/Python311/Scripts/"))
+(setenv "PATH" (concat (getenv "PATH") "C:/Users/I506687/AppData/Roaming/Python/Python311/site-packages/"))
+(setq exec-path (append exec-path '("c:/Users/I506687/AppData/Local/Programs/Python/Python311/Scripts/")))
+
 
 ;; Remote repositories setup
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -157,7 +162,7 @@
  '(elpy-formatter 'autopep8)
  '(elpy-syntax-check-command "flake8")
  '(package-selected-packages
-   '(python-black all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy all-the-icons-ivy-rich all-the-icons-completion page-break-lines projectile-rails all-the-icons dashboard unkillable-scratch solarized-theme monokai-theme clues-theme smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
+   '(base16-theme clang-format org-roam flymake-flycheck vimrc-mode flycheck-pyflakes python-black all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy all-the-icons-ivy-rich all-the-icons-completion page-break-lines projectile-rails all-the-icons dashboard unkillable-scratch solarized-theme monokai-theme clues-theme smart-mode-line-atom-one-dark-theme powerline-evil atom-dark-theme persistent-scratch flymake-python-pyflakes evil-extra-operator projectile sxhkdrc-mode pylint lorem-ipsum py-autopep8 smart-mode-line-powerline-theme company-plsense ivy-yasnippet yasnippet-snippets eglot powershell forest-blue-theme subatomic256-theme xml+ xml-format magit pyvenv highlight-indentation s elpl jedi jedi-core jedi-direx zones auto-yasnippet pyenv-mode highlight-indent-guides company-ebdb elpy immaterial-theme material-theme git markdown-mode zuul yasnippet web-beautify use-package underwater-theme tron-legacy-theme spacemacs-theme slime rainbow-delimiters queue perl-doc org-babel-eval-in-repl org multiple-cursors mode-icons mmt gotham-theme flycheck f ewal evil display-wttr darktooth-theme darkroom darkokai-theme darkmine-theme darkburn-theme dark-mint-theme dark-krystal-theme darcula-theme danneskjold-theme dakrone-theme dakrone-light-theme cyberpunk-theme cyberpunk-2019-theme counsel company chronos boron-theme borland-blue-theme better-defaults anzu ahk-mode)))
 	
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -174,7 +179,16 @@
 (use-package elpy
   :ensure t
   :init
+  ;; (setq elpy-rpc-virtualenv-path 'current)
   (elpy-enable))
+
+;; Enable Flycheck
+;; (when (require 'flycheck nil t)
+;;  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;; (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; Format before save using black
+(add-hook 'elpy-mode-hook (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))
 
 ;; Org-mode settings and keybindings
 (add-to-list 'load-path "c:/Users/I506687/Documents/Org")
@@ -208,6 +222,5 @@
 ;;   (dashboard-modify-heading-icons '((recents . "file-text")))
 
 
-
-
-
+(use-package org-roam
+  :ensure t)
