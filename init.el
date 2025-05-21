@@ -1,5 +1,7 @@
-;; (load "server")
-;; (unless (server-running-p) (server-start))
+(load "server")
+(unless (server-running-p) (server-start))
+;; (setq max-lisp-eval-depth 10000)
+;; (setq max-specpdl-size 13000)
 (setq inhibit-startup-message t)
 (setq initial-buffer-choice nil)
 (setq remember-notes-initial-major-mode 'org-mode)
@@ -7,7 +9,7 @@
 (setq python-indent-offset 4)
 (setq auto-save-timeout 30)
 (setq confirm-kill-emacs 'yes-or-no-p)
-(setq init-file-debug nil)
+(setq init-file-debug t)
 (setq visible-bell nil)
 (setq backup-inhibited t)
 (setq custom-safe-themes t)
@@ -19,21 +21,40 @@
 (setq display-time-24hr-format 1)
 (setq display-time-format  "%F %H:%M")
 (setq display-time-interval 1)
+(setq fill-column 70)
 (setq doc-view-continuous t)
 (setq org-fontify-emphasized-text t)
 (setq lexical-binding t)
 (setq split-width-threshold 0) ;; Emerging windows should be vertical instead of horizontal
 (setq split-height-threshold nil)
+;; (setq debug-on-error t)
 (setq-default ispell-program-name "/usr/bin/aspell")
 (setq ispell-dictionary "en")
 (setf dired-kill-when-opening-new-dired-buffer t)
 (display-battery-mode)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(undo-tree-mode -1)
+;; (undo-tree-mode -1)
+(column-number-mode)
 (electric-pair-mode -1)
 (global-visual-line-mode 1) ;; Soft wrap of lines
-(load-theme 'abyss)
+
+ ;; (if (display-graphic-p)
+ ;; 	 (enable-theme 'abyss)
+ ;;   (enable-theme 'cyberpunk-2019))
+
+(load-theme 'tango-dark)
+
+;; (defun frame-pick-color-theme (frame)
+;;   (select-frame frame)
+;;   (if (window-system frame)
+;;         (load-theme 'tango))
+;;     (progn
+;;       (load-theme 'tango-dark)))
+
+;; (add-hook 'after-make-frame-functions 'frame-pick-color-theme)
+
+
 (display-time-mode)
 (set-cursor-color "Green")
 
@@ -42,11 +63,16 @@
 (require 'package)
 (require 'cl-lib)
 (require 'ielm)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-						 ("org" . "https://orgmode.org/elpa/")
-						 ("gnu" . "http://elpa.gnu.org/packages/")
-						 ))
+(require 'epa-file)
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
+
 (defun package-require (&rest packs)
   "Install and load a package. If the package is not available
    installs it automatically."
@@ -57,13 +83,12 @@
 		packs))
 
 (package-require
- 'ahk-mode
- 'paredit
+  'ahk-mode
+  'paredit
  'rainbow-delimiters
- 'company
- )
+ 'company)
 
-;; (Setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 ;; (setq package-check-signature nil)
 ;; (setq desktop-auto-save-timeout 5)
 ;; (linum-mode) ; DEPRECATED starting from version 30.0
@@ -75,11 +100,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(base16-theme company-ledger evil-tex chronos company rainbow-delimiters rainbow-delimeters paredit paraedit
-		  (ahk-mode)
-		  (ahk-mode . abs-mode)
-		  (ahk-mode abs-mode)
-		  ahk-mode pandoc pandoc-mode latex-preview-pane lush-theme abyss-theme acme-theme adwaita-dark-theme amber-glow-theme ample-theme magit undo-tree evil markdown-mode lorem-ipsum jazz-theme iceberg-theme gotham-theme gnu-elpa-keyring-update cyberpunk-theme cyberpunk-2019-theme browse-kill-ring atom-one-dark-theme atom-dark-theme)))
+   '(display-theme base16-theme evil-tex chronos rainbow-delimiters rainbow-delimeters paredit paraedit
+		   (ahk-mode)
+		   (ahk-mode . abs-mode)
+		   (ahk-mode abs-mode)
+		   ahk-mode pandoc pandoc-mode latex-preview-pane lush-theme abyss-theme acme-theme adwaita-dark-theme amber-glow-theme ample-theme magit undo-tree evil markdown-mode lorem-ipsum jazz-theme iceberg-theme gotham-theme cyberpunk-theme cyberpunk-2019-theme browse-kill-ring atom-one-dark-theme atom-dark-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -95,6 +120,7 @@
 
 (defun my-personal-pascal ()
   (display-line-numbers-mode 1)
+  (undo-tree-mode 1)
   (local-set-key (kbd "C-c m") 'compile))
 
 (add-hook 'pascal-mode-hook #'my-personal-pascal)
@@ -124,11 +150,11 @@
   (insert "==================================")
   )
 
-(define-advice delete-frame (:around (oldfun &rest args) confirm-frame-deletion)
-  "Confirm deleting the frame."
-  (interactive)
-  (when (y-or-n-p "Delete frame? ")
-    (apply oldfun args)))
+;; (define-advice delete-frame (:around (oldfun &rest args) confirm-frame-deletion)
+;;   "Confirm deleting the frame."
+;;   (interactive)
+;;   (when (y-or-n-p "Delete frame? ")
+;;     (apply oldfun args)))
 
 (global-set-key (kbd "C-c q") 'quick-calc)
 (global-set-key (kbd "C-c e") 'insert-end-of-entry)
@@ -140,7 +166,7 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
-(add-hook 'kill-buffer-hook (lambda () (kill-buffer (current-buffer))))
+;; (add-hook 'kill-buffer-hook (lambda () (kill-buffer (current-buffer))))
 
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -149,21 +175,24 @@
             (paredit-mode t)
             (rainbow-delimiters-mode t)
             (show-paren-mode 1)
-            ))
+            (undo-tree-mode 1)
+	    ))
 
 (add-hook 'lisp-interaction-mode
           (lambda ()
             (paredit-mode t)
             (rainbow-delimiters-mode t)
             (show-paren-mode 1)
-            ))
+	    (undo-tree-mode 1)))
+
+
 
 (defun ielm/clear-repl ()
-  "Clear current REPL buffer."
+  1  "Clear current REPL buffer."
   (interactive)
   (let ((inhibit-read-only t))
-      (erase-buffer)
-      (ielm-send-input)))
+    (erase-buffer)
+    (ielm-send-input)))
 
 
 
@@ -194,6 +223,8 @@
 ;; Orgmode Options
 (setq org-startup-folded t)
 (setq org-catch-invisible-edits 1)
+(org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
+(setq org-babel-python-command "python3")
 
 ;; Ispell can change languages
 
@@ -212,5 +243,11 @@
 ;; Cycle ispell-mode languages
 ;; (global-set-key [f10] #'cycle-ispell-languages)
 
+(defun my-org-mode-hook ()
+       (auto-fill-mode t)
+       (set-fill-column 70))
 
-; LocalWords:  setq emacs Monospace
+(add-hook 'org-mode-hook 'my-org-mode-hook)
+
+;; LocalWords:  setq emacs Monospace
+
